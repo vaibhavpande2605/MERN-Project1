@@ -69,7 +69,32 @@ router.post("/register", async (req, res) => {
     });
 
     await user.save();
-     res.status(201).json({message: "user registered successfully" });
+
+    res.status(201).json({ message: "user registered successfully" });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// login route
+
+router.post("/signin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: "plzz filled the data" });
+    }
+
+    const userLogin = await User.findOne({ email: email });
+
+    console.log(userLogin);
+
+    if (!userLogin) {
+      res.status(400).json({ error: "user error" });
+    } else {
+      res.json({ message: "login successfully" });
+    }
   } catch (err) {
     console.log(err);
   }
