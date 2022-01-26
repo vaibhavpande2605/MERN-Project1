@@ -1,11 +1,17 @@
 const express = require("express");
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const app = express();
+const bodyParser = require('body-parser');
 
-dotenv.config({path:'./config.env'})
+dotenv.config({ path: "./config.env" });
+const User = require('./models/userSchema')
 
-console.log("hello vaibhav");
+app.use(bodyParser.json());
+app.use(express.json());
+// made router file
+app.use(require('./router/auth'))
+
 
 const URL = process.env.MONGO_URL;
 
